@@ -102,7 +102,7 @@
        <item>
         <widget class="QPushButton" name="row1Submit">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Submit</string>
@@ -147,7 +147,7 @@
        <item>
         <widget class="QPushButton" name="row2Submit">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Submit</string>
@@ -192,7 +192,7 @@
        <item>
         <widget class="QPushButton" name="row3Submit">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Submit</string>
@@ -237,7 +237,7 @@
        <item>
         <widget class="QPushButton" name="row4Submit">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Submit</string>
