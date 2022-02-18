@@ -15,6 +15,7 @@ class WSMainWindow(QtWidgets.QMainWindow, UI_AppWindow):
         QtWidgets.QMainWindow.__init__(self, flags=QtCore.Qt.Window)
         UI_AppWindow.__init__(self)
         self.setupUi(self)
+        self.setWindowTitle("Wordle Helper")
 
         self.known_letters_with_pos = {}
         self.known_letters_bad_pos = {}
