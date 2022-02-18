@@ -17,11 +17,11 @@ class WSMainWindow(QtWidgets.QMainWindow, UI_AppWindow):
         self.setupUi(self)
         self.setWindowTitle("Wordle Helper")
 
-        self.known_letters_with_pos = {}
+        self.known = ["", "", "", "", ""]
         self.known_letters_bad_pos = {}
         self.known_bad_chars = []
 
-        self.cell_state_options = ['white', 'grey', 'yellow', 'green']
+        self.cell_state_options = ['grey', 'yellow', 'green']
 
         self.inputs = [[self.c00, self.c01, self.c02, self.c03, self.c04],
                        [self.c10, self.c11, self.c12, self.c13, self.c14],
@@ -30,18 +30,11 @@ class WSMainWindow(QtWidgets.QMainWindow, UI_AppWindow):
                        [self.c40, self.c41, self.c42, self.c43, self.c44]]
 
         # position of cell_state_options i.e. they are all white to begin with
-        self.inputs_states = [[0, 0, 0, 0, 0],
-                              [0, 0, 0, 0, 0],
-                              [0, 0, 0, 0, 0],
-                              [0, 0, 0, 0, 0],
-                              [0, 0, 0, 0, 0]]
-
-        # will populate with letters
-        self.inputs_chars = [["", "", "", "", ""],
-                             ["", "", "", "", ""],
-                             ["", "", "", "", ""],
-                             ["", "", "", "", ""],
-                             ["", "", "", "", ""]]
+        self.inputs_states = [[-1, -1, -1, -1, -1],
+                              [-1, -1, -1, -1, -1],
+                              [-1, -1, -1, -1, -1],
+                              [-1, -1, -1, -1, -1],
+                              [-1, -1, -1, -1, -1]]
 
         self.submit_buttons = [self.row0Submit,
                                self.row1Submit,
@@ -65,6 +58,18 @@ class WSMainWindow(QtWidgets.QMainWindow, UI_AppWindow):
         col = int(lineedit.objectName()[2])
         self.update_cell_bg_color(row, col)
 
+    def text_changed(self, char_changed_to):
+        lineedit = QtWidgets.QApplication.focusWidget()
+        row = int(lineedit.objectName()[1])
+        col = int(lineedit.objectName()[2])
+        if self.inputs_states[row][col] == -1:
+            if char_changed_to != "":
+                self.inputs[row][col].setStyleSheet("QLineEdit {background-color:" + self.cell_state_options[0] + "}")
+                self.inputs_states[row][col] += 1
+            else:
+                self.inputs[row][col].setStyleSheet("QLineEdit {background-color: white}")
+                self.inputs_states[row][col] = -1
+
     def update_cell_bg_color(self, row, col):
         cell = self.inputs[row][col]
         cell_bg_state = (self.inputs_states[row][col] + 1) % len(self.cell_state_options)
@@ -80,6 +85,7 @@ class WSMainWindow(QtWidgets.QMainWindow, UI_AppWindow):
         for row in range(5):
             for col in range(5):
                 self.inputs[row][col].returnPressed.connect(self.return_pressed)
+                self.inputs[row][col].textChanged.connect(self.text_changed)
 
         # setup Submit of row
         self.row0Submit.clicked.connect(self.submit_clicked)
@@ -98,33 +104,46 @@ class WSMainWindow(QtWidgets.QMainWindow, UI_AppWindow):
             color = self.get_color(line_edit.palette().color(QPalette.Background))
 
             if color == "green":
-                if char in self.known_letters_with_pos.keys():  # Add it to its value
-                    self.known_letters_with_pos[char].append(col)
-                else:
-                    self.known_letters_with_pos[char] = [col]
-            if color == "grey":
-                if char not in self.known_bad_chars:
+                self.known[col] = char
+            elif color == "grey":
+                if char not in self.known_bad_chars and \
+                        (char not in self.known and char not in self.known_letters_bad_pos.keys()):
                     self.known_bad_chars.append(char)
-            if color == "yellow":
+
+            elif color == "yellow":
                 if char in self.known_letters_bad_pos.keys():  # Add it to its value
                     self.known_letters_bad_pos[char].append(col)
                 else:
                     self.known_letters_bad_pos[char] = [col]
+            else:
+                return
 
         self.possible_words = get_words(self.possible_words,
                                         self.known_bad_chars,
                                         self.known_letters_bad_pos,
-                                        self.known_letters_with_pos)
-        self.try_next_text.setText(f"Try: {self.possible_words[0]}")
+                                        self.known)
+
+        self.update_status_labels()
+
+        button.setEnabled(False)
+
+    def update_status_labels(self):
+        if len(self.possible_words) > 0:
+            self.try_next_text.setText(f"Try: {self.possible_words[0]}")
+        else:
+            self.try_next_text.setText(f"Nothing Left")
         min_idx = min(len(self.possible_words), 4)
-        next_top_str = f"Next Top {min_idx - 1}:"
-        for idx in range(min_idx - 1):
-            next_top_str += f" {self.possible_words[idx+1]},"
-        self.top_results.setText(next_top_str[:-1])
-        #disable button, enable the next one
+
+        if min_idx <= 1:
+            self.top_results.setText("No More Words!")
+        else:
+            next_top_str = f"Next Top {min_idx - 1}:"
+            for idx in range(min_idx - 1):
+                next_top_str += f" {self.possible_words[idx + 1]},"
+            self.top_results.setText(next_top_str[:-1])
 
     def get_color(self, bg):
-        #bg is background of of Cell
+        # bg is background of of Cell
         if bg.red() == 239 and bg.green() == 239 and bg.blue() == 239:
             return "white"
         if bg.red() == 128 and bg.green() == 128 and bg.blue() == 128:
@@ -135,20 +154,20 @@ class WSMainWindow(QtWidgets.QMainWindow, UI_AppWindow):
             return "green"
 
 
-def get_words(possibles, bad_chars, known_letters_bad_pos, known_letters_with_pos):
+def get_words(possibles, bad_chars, known_letters_bad_pos, known_letters):
     new_possibles = []
 
     for w in possibles:
         # remove all words without correct known letter(s) in their correct space
-        for char in known_letters_with_pos.keys():
-            # adds a word with one letter in one place and 1 in another but not should only add if BOTH are in
-            for known_position in known_letters_with_pos[char]:
-                if w[known_position] == char and w not in new_possibles:
-                    new_possibles.append(w)
-            # remove ones that don't satisfy all
-            for known_position in known_letters_with_pos[char]:
-                if w[known_position] != char and w in new_possibles:
-                    new_possibles.remove(w)
+        is_valid = True
+        for idx, char in enumerate(known_letters):
+            if char != "":
+                if w[idx] != char:
+                    is_valid = False
+                    break
+        # only add words that matched every known character
+        if is_valid:
+            new_possibles.append(w)
 
     # This is hit first time called when nothing is known
     if len(new_possibles) == 0:
@@ -190,14 +209,3 @@ if __name__ == '__main__':
     window = WSMainWindow()
     window.show()
     sys.exit(app.exec_())
-    # words = pd.read_csv("/home/ben/Desktop/words.csv")
-    #
-    # possibles = words['word'].values
-    # bad_chars = ['t', 'o', 'r', 'd', 'm']
-    # known_letters_bad_pos = {'s': [3,4], 'h':[0], 'e':[1]}
-    # known_letters_with_pos = {'a': [2], 's':[0], 'h':[1], 'e':[4]}
-    #
-    # choices = get_words(possibles, bad_chars, known_letters_bad_pos, known_letters_with_pos)
-    # print(f"\n\nTry \"{choices[0]}\"\n\n")
-    # print(f"\n\nReturned {len(choices)} possible words with \"{choices[0]}\" being the most likely.\n")
-    # print(choices)
