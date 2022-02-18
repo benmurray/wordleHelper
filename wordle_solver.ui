@@ -31,12 +31,18 @@
          <property name="maxLength">
           <number>1</number>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
        </item>
        <item>
         <widget class="QLineEdit" name="c01">
          <property name="maxLength">
           <number>1</number>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -45,6 +51,9 @@
          <property name="maxLength">
           <number>1</number>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -52,12 +61,18 @@
          <property name="maxLength">
           <number>1</number>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
        </item>
        <item>
         <widget class="QLineEdit" name="c04">
          <property name="maxLength">
           <number>1</number>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -89,19 +104,39 @@
      <item>
       <layout class="QHBoxLayout" name="row1">
        <item>
-        <widget class="QLineEdit" name="c10"/>
+        <widget class="QLineEdit" name="c10">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="c11"/>
+        <widget class="QLineEdit" name="c11">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="c12"/>
+        <widget class="QLineEdit" name="c12">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="c13"/>
+        <widget class="QLineEdit" name="c13">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="c14"/>
+        <widget class="QLineEdit" name="c14">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
         <spacer name="horizontalSpacer_2">
@@ -134,19 +169,39 @@
      <item>
       <layout class="QHBoxLayout" name="row2">
        <item>
-        <widget class="QLineEdit" name="c20"/>
+        <widget class="QLineEdit" name="c20">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="c21"/>
+        <widget class="QLineEdit" name="c21">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="c22"/>
+        <widget class="QLineEdit" name="c22">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="c23"/>
+        <widget class="QLineEdit" name="c23">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="c24"/>
+        <widget class="QLineEdit" name="c24">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
         <spacer name="horizontalSpacer_3">
@@ -179,19 +234,39 @@
      <item>
       <layout class="QHBoxLayout" name="row3">
        <item>
-        <widget class="QLineEdit" name="c30"/>
+        <widget class="QLineEdit" name="c30">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="c31"/>
+        <widget class="QLineEdit" name="c31">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="c32"/>
+        <widget class="QLineEdit" name="c32">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="c33"/>
+        <widget class="QLineEdit" name="c33">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="c34"/>
+        <widget class="QLineEdit" name="c34">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
         <spacer name="horizontalSpacer_4">
@@ -224,19 +299,39 @@
      <item>
       <layout class="QHBoxLayout" name="row4">
        <item>
-        <widget class="QLineEdit" name="c40"/>
+        <widget class="QLineEdit" name="c40">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="c41"/>
+        <widget class="QLineEdit" name="c41">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="c42"/>
+        <widget class="QLineEdit" name="c42">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="c43"/>
+        <widget class="QLineEdit" name="c43">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="c44"/>
+        <widget class="QLineEdit" name="c44">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
         <spacer name="horizontalSpacer_5">
